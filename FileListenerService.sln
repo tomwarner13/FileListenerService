@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileListenerService", "FileListenerService\FileListenerService.csproj", "{CD180B19-E4A4-4B87-81D6-CA81A64BDC52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileListenerApp", "FileListenerApp\FileListenerApp.csproj", "{831E1D5B-1106-43F9-8D95-193C2D183294}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD180B19-E4A4-4B87-81D6-CA81A64BDC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD180B19-E4A4-4B87-81D6-CA81A64BDC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD180B19-E4A4-4B87-81D6-CA81A64BDC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD180B19-E4A4-4B87-81D6-CA81A64BDC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831E1D5B-1106-43F9-8D95-193C2D183294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831E1D5B-1106-43F9-8D95-193C2D183294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831E1D5B-1106-43F9-8D95-193C2D183294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831E1D5B-1106-43F9-8D95-193C2D183294}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
