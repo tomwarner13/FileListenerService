@@ -9,4 +9,4 @@ To use this service: edit the values in app.config.
 
 *DirsToIgnore* is a semicolon-delimited blacklist of any top-level directories which you would like the service to ignore. The endpoint will not be notified of any changes within these directories.
 
-The console app can be used to test the service without needing to install it; note that it does not currently create any output, so you'll need to attach with a debugger or capture web requests to observe anything happening.
+The console app can be used to test the service without needing to install it; it will log any changes to tracked files.
