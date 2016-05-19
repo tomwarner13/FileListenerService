@@ -10,3 +10,5 @@ To use this service: edit the values in app.config.
 *DirsToIgnore* is a semicolon-delimited blacklist of any top-level directories which you would like the service to ignore. The endpoint will not be notified of any changes within these directories.
 
 The console app can be used to test the service without needing to install it; it will log any changes to tracked files.
+
+*Note:* many file operations may fire multiple events; for example, saving the same file from different text editors will fire between 1 and 3 events, and pasting a file into a folder produces a Created and a Changed event in immediate sequence on my machine. Make sure your API can handle that, or suppress multiple identical events in a short timespan.
