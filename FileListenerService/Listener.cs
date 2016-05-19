@@ -29,7 +29,7 @@ namespace FileListenerService
       _dirsToIgnore = dirsToIgnore;
 
       _watcher = new FileSystemWatcher(_rootDir);
-      _watcher.NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.LastWrite;
+      _watcher.NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.FileName;
       _watcher.IncludeSubdirectories = true;
 
       _watcher.Changed += new FileSystemEventHandler(OnChanged);
