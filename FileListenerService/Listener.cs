@@ -51,7 +51,7 @@ namespace FileListenerService
       }
       catch(Exception e)
       {
-        log.Error($"Exception contacting API endpoint: {e.Message}");
+        log.Error($"Exception contacting API endpoint: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
       }
     }
 
