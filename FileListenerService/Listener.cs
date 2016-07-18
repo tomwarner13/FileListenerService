@@ -40,10 +40,18 @@ namespace FileListenerService
 
     private void NotifyEndpoint(Dictionary<string, string> values)
     {
-      log.Debug($"Notifying endpoint at {_endpoint.AbsoluteUri}");
-      using (var client = new HttpClient())
+      log.Debug($"Notifying endpoint at {_endpoint.AbsoluteUri} with path '{values["Path"]}'");
+      try
       {
-        var response = client.PostAsync(_endpoint.AbsoluteUri, new FormUrlEncodedContent(values)).Result;
+        using (var client = new HttpClient())
+        {
+          var response = client.PostAsync(_endpoint.AbsoluteUri, new FormUrlEncodedContent(values)).Result;
+          log.Debug($"Endpoint responded {response.StatusCode} with content {response.Content.ReadAsStringAsync().Result}");
+        }
+      }
+      catch(Exception e)
+      {
+        log.Error($"Exception contacting API endpoint: {e.Message}");
       }
     }
 
