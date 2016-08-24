@@ -14,7 +14,7 @@ namespace FileListenerApp
     {
       var listener = new Listener(
         ConfigurationManager.AppSettings["RootDirectory"],
-        ConfigurationManager.AppSettings["UrlEndpoint"],
+        ConfigurationManager.AppSettings["UrlEndpoints"],
         new List<string>(ConfigurationManager.AppSettings["DirsToIgnore"].Split(new char[] { ';' })));
 
       Console.WriteLine("Please press the ANY key to exit");

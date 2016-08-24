@@ -11,21 +11,22 @@ namespace FileListenerService
 {
   public class Listener
   {
-    private readonly Uri _endpoint;
+    private readonly List<Uri> _endpoints;
     private FileSystemWatcher _watcher;
     private string _rootDir;
     private List<string> _dirsToIgnore;
     private readonly ILog log;
+    private char _endpointSeparator = '|';
 
     //may need this
     //[PermissionSet(SecurityAction.Demand, Name="FullTrust")]
-    public Listener(string rootDir, string endpoint, List<string> dirsToIgnore)
+    public Listener(string rootDir, string endpoints, List<string> dirsToIgnore)
     {
       log4net.Config.XmlConfigurator.Configure();
       log = LogManager.GetLogger(typeof(Listener));
 
       _rootDir = rootDir;
-      _endpoint = new Uri(endpoint);
+      _endpoints = endpoints.Split(_endpointSeparator).Select(e => new Uri(e)).ToList();
       _dirsToIgnore = dirsToIgnore;
 
       _watcher = new FileSystemWatcher(_rootDir);
@@ -38,20 +39,23 @@ namespace FileListenerService
       _watcher.EnableRaisingEvents = true;
     }
 
-    private void NotifyEndpoint(Dictionary<string, string> values)
+    private void NotifyEndpoints(Dictionary<string, string> values)
     {
-      log.Debug($"Notifying endpoint at {_endpoint.AbsoluteUri} with path '{values["Path"]}'");
-      try
+      foreach (var endpoint in _endpoints)
       {
-        using (var client = new HttpClient())
+        log.Debug($"Notifying endpoint at {endpoint.AbsoluteUri} with path '{values["Path"]}'");
+        try
         {
-          var response = client.PostAsync(_endpoint.AbsoluteUri, new FormUrlEncodedContent(values)).Result;
-          log.Debug($"Endpoint responded {response.StatusCode} with content {response.Content.ReadAsStringAsync().Result}");
+          using (var client = new HttpClient())
+          {
+            var response = client.PostAsync(endpoint.AbsoluteUri, new FormUrlEncodedContent(values)).Result;
+            log.Debug($"Endpoint responded {response.StatusCode} with content {response.Content.ReadAsStringAsync().Result}");
+          }
         }
-      }
-      catch(Exception e)
-      {
-        log.Error($"Exception contacting API endpoint: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
+        catch (Exception e)
+        {
+          log.Error($"Exception contacting API endpoint: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
+        }
       }
     }
 
@@ -76,7 +80,7 @@ namespace FileListenerService
           { "Path", relativePath },
           { "Event", e.ChangeType.ToString() }
         };
-        NotifyEndpoint(values);
+        NotifyEndpoints(values);
       }
     }
   }

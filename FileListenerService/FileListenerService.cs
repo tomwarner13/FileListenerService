@@ -22,7 +22,7 @@ namespace FileListenerService
     {
       var l = new Listener(
         ConfigurationManager.AppSettings["RootDirectory"], 
-        ConfigurationManager.AppSettings["UrlEndpoint"],
+        ConfigurationManager.AppSettings["UrlEndpoints"],
         new List<string>(ConfigurationManager.AppSettings["DirsToIgnore"].Split(new char[] { ';' } )));
     }
 
