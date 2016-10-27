@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace FileListenerService
       Task.Run(() => Respond(e));
     }
 
-    private async Task Respond(FileSystemEventArgs e)
+    private void Respond(FileSystemEventArgs e)
     {
       _log.Debug($"File change observed: path {e.FullPath} with change {e.ChangeType}");
       var relativePath = e.FullPath.Replace(_rootDir, "");
@@ -77,29 +78,34 @@ namespace FileListenerService
           {"Path", relativePath},
           {"Event", e.ChangeType.ToString()}
         };
-        await NotifyEndpoints(values);
+        NotifyEndpoints(values);
       }
     }
 
-    private async Task NotifyEndpoints(Dictionary<string, string> values)
+    private void NotifyEndpoints(Dictionary<string, string> values)
     {
       foreach (var endpoint in _endpoints)
       {
-        _log.Debug($"Notifying endpoint at {endpoint.AbsoluteUri} with path '{values["Path"]}'");
-        try
+        Task.Run(() => NotifyEndpoint(endpoint, values));
+      }
+    }
+
+    private async Task NotifyEndpoint(Uri endpoint, Dictionary<string, string> values)
+    {
+      _log.Debug($"Notifying endpoint at {endpoint.AbsoluteUri} with path '{values["Path"]}'");
+      try
+      {
+        using (var client = new HttpClient())
         {
-          using (var client = new HttpClient())
-          {
-            var response = await client.PostAsync(endpoint.AbsoluteUri, new FormUrlEncodedContent(values));
-            _log.Debug(
-              $"Endpoint responded {response.StatusCode} with content {response.Content.ReadAsStringAsync().Result}");
-          }
+          var response = await client.PostAsync(endpoint.AbsoluteUri, new FormUrlEncodedContent(values));
+          _log.Debug(
+            $"Endpoint {endpoint.AbsoluteUri} responded {response.StatusCode} with content {response.Content.ReadAsStringAsync().Result}");
         }
-        catch (Exception e)
-        {
-          _log.Error(
-            $"Exception contacting API endpoint: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
-        }
+      }
+      catch (Exception e)
+      {
+        _log.Error(
+          $"Exception contacting API endpoint {endpoint.AbsoluteUri}: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
       }
     }
 
