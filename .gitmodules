@@ -1,0 +1,3 @@
+[submodule "EventTracker"]
+	path = EventTracker
+	url = https://github.com/tomwarner13/EventTracker.git

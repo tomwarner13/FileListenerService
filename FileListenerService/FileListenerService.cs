@@ -13,6 +13,8 @@ namespace FileListenerService
 {
   public partial class FileListenerService : ServiceBase
   {
+    private Listener _listener;
+
     public FileListenerService()
     {
       InitializeComponent();
@@ -20,14 +22,15 @@ namespace FileListenerService
 
     protected override void OnStart(string[] args)
     {
-      var l = new Listener(
+      _listener = new Listener(
         ConfigurationManager.AppSettings["RootDirectory"], 
-        ConfigurationManager.AppSettings["UrlEndpoints"],
-        new List<string>(ConfigurationManager.AppSettings["DirsToIgnore"].Split(new char[] { ';' } )));
+        ConfigurationManager.AppSettings["UrlEndpoints"].Split(';'),
+        ConfigurationManager.AppSettings["DirsToIgnore"].Split(';'));
     }
 
     protected override void OnStop()
     {
+      _listener.Dispose();
     }
   }
 }

@@ -105,6 +105,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventTracker\EventTracker\EventTracker.csproj">
+      <Project>{482bfc2b-e6e0-493b-9631-1a9089f78d30}</Project>
+      <Name>EventTracker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileListenerApp", "FileList
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FileListenerSetup", "FileListenerSetup\FileListenerSetup.vdproj", "{E8662334-3934-479C-B905-9309AAFA1CA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventTracker", "EventTracker\EventTracker\EventTracker.csproj", "{482BFC2B-E6E0-493B-9631-1A9089F78D30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{831E1D5B-1106-43F9-8D95-193C2D183294}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8662334-3934-479C-B905-9309AAFA1CA9}.Debug|Any CPU.ActiveCfg = Debug
 		{E8662334-3934-479C-B905-9309AAFA1CA9}.Release|Any CPU.ActiveCfg = Release
+		{482BFC2B-E6E0-493B-9631-1A9089F78D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482BFC2B-E6E0-493B-9631-1A9089F78D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482BFC2B-E6E0-493B-9631-1A9089F78D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482BFC2B-E6E0-493B-9631-1A9089F78D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

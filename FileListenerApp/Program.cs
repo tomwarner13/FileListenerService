@@ -14,11 +14,12 @@ namespace FileListenerApp
     {
       var listener = new Listener(
         ConfigurationManager.AppSettings["RootDirectory"],
-        ConfigurationManager.AppSettings["UrlEndpoints"],
-        new List<string>(ConfigurationManager.AppSettings["DirsToIgnore"].Split(new char[] { ';' })));
+        ConfigurationManager.AppSettings["UrlEndpoints"].Split(';'),
+        ConfigurationManager.AppSettings["DirsToIgnore"].Split(';'));
 
       Console.WriteLine("Please press the ANY key to exit");
       Console.ReadLine();
+      listener.Dispose();
     }
   }
 }
