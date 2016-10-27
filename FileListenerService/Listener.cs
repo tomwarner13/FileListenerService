@@ -78,15 +78,10 @@ namespace FileListenerService
           {"Path", relativePath},
           {"Event", e.ChangeType.ToString()}
         };
-        NotifyEndpoints(values);
-      }
-    }
-
-    private void NotifyEndpoints(Dictionary<string, string> values)
-    {
-      foreach (var endpoint in _endpoints)
-      {
-        Task.Run(() => NotifyEndpoint(endpoint, values));
+        foreach (var endpoint in _endpoints)
+        {
+          Task.Run(() => NotifyEndpoint(endpoint, values));
+        }
       }
     }
 
