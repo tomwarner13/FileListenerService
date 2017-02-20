@@ -100,7 +100,7 @@ namespace FileListenerService
       catch (Exception e)
       {
         _log.Error(
-          $"Exception contacting API endpoint {endpoint.AbsoluteUri}: {e.Message}. Inner Exception: {e.InnerException}. Stack trace: {e.StackTrace}");
+          $"Exception contacting API endpoint {endpoint.AbsoluteUri}", e);
       }
     }
 
